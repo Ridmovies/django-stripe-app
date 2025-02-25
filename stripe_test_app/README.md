@@ -11,7 +11,7 @@
 ### Дополнительные инструменты:
 - python-dotenv (Для работы с переменными окружения в Django)
 
-
+---
 
 ## Roadmap
 Основные задачи: 
@@ -34,12 +34,13 @@
 - [ ] Реализовать не Stripe Session, а Stripe Payment Intent.
 
 
-
+---
 
 
 #### Документация:
 http://127.0.0.1:8000/admin/
 
+---
 
 ## DEVELOP
 ### Django команды:
@@ -68,6 +69,25 @@ python manage.py createsuperuser
 python manage.py makemigrations
 python manage.py migrate
 ```
+
+---
+
+### Docker
+
+Сборка образа из Dockerfile:
+```
+  docker build -t [имя_образа]:[версия] .
+```
+
+
+Запуск нового контейнера:
+```
+  docker run -p 5000:8000 [имя_образа]
+```
+
+---
+
+
 
 ## Полезные ссылки:
 Stripe. Simulate payments to test your integration
