@@ -25,7 +25,7 @@
 - [x] API с двумя методами:
   - [x] GET /buy/{id}, c помощью которого можно получить Stripe Session Id для оплаты выбранного Item. При выполнении этого метода c бэкенда с помощью python библиотеки stripe должен выполняться запрос stripe.checkout.Session.create(...) и полученный session.id выдаваться в результате запроса
   - [x] GET /item/{id}, c помощью которого можно получить простейшую HTML страницу, на которой будет информация о выбранном Item и кнопка Buy. По нажатию на кнопку Buy должен происходить запрос на /buy/{id}, получение session_id и далее  с помощью JS библиотеки Stripe происходить редирект на Checkout форму stripe.redirectToCheckout(sessionId=session_id)
-- [ ] Залить решение на Github, описать запуск в Readme.md
+- [x] Залить решение на Github, описать запуск в Readme.md
 - [ ] Опубликовать свое решение чтобы его можно было быстро и легко протестировать. 
 
 Бонусные задачи: 
@@ -90,28 +90,28 @@ ___
 ### Django команды:
 Запуск приложения
 ```bash
-python manage.py runserver
+  python manage.py runserver
 ```
 
 Создать новый проект Django:
 ```bash
-django-admin startproject stripe_test_app
+  django-admin startproject stripe_test_app
 ```
 
 Создать новое приложение:
 ```bash
-python manage.py startapp items
+  python manage.py startapp items
 ```
 
 Создать Супер пользователя
 ```bash
-python manage.py createsuperuser
+    python manage.py createsuperuser
 ```
 
 Создать и применить миграции:
 ```bash
-python manage.py makemigrations
-python manage.py migrate
+    python manage.py makemigrations
+    python manage.py migrate
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
