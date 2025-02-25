@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order #{{ order.id }}</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h1>Order #{{ order.id }}</h1>
+    <p>{{ order.created_at }}</p>
+    <p>Price: {{ order.total_cost }}</p>
+    <button id="buy-button">Buy</button>
+
+    <script>
+        // Создаем новый экземпляр Stripe, используя публичный ключ,
+        // который мы получаем из шаблона (или переменной окружения)
+        var stripe = Stripe('{{ stripe_public_key }}');
+
+        // Находим кнопку для покупки по ее ID 'buy-button'
+        var buyButton = document.getElementById('buy-button');
+
+        // Добавляем слушатель событий на нажатие кнопки
+        buyButton.addEventListener('click', function() {
+            // Отправляем AJAX-запрос на сервер для получения сессии оплаты
+            fetch('/api/orders/{{ order.id }}/buy/')  // {{ order.id }} — это динамический параметр (ID заказа)
+                .then(function(response) {  // Обрабатываем успешный ответ сервера
+                    // Преобразуем ответ в JSON-формат
+                    return response.json();
+                })
+                .then(function(session) {  // Получаем данные сессии оплаты от сервера
+                    // Используем метод redirectToCheckout из Stripe SDK
+                    // для перенаправления пользователя на страницу оплаты Stripe
+                    return stripe.redirectToCheckout({
+                        sessionId: session.session_id  // Передаем id сессии оплаты
+                    });
+                })
+                .then(function(result) {  // Проверяем результат перехода на оплату
+                    // Если произошла ошибка, выводим сообщение об ошибке
+                    if (result.error) {
+                        alert(result.error.message);  // Сообщение об ошибке
+                    }
+                })
+                .catch(function(error) {  // Ловим любые возможные ошибки
+                    // Логируем ошибку в консоли для дальнейшего анализа
+                    console.error('Error:', error);
+                });
+        });
+
+    </script>
+</body>
+</html>
