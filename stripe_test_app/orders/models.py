@@ -5,7 +5,7 @@ from items.models import Item
 class Tax(models.Model):
     """Модель для хранения налогов"""
     tax_id = models.CharField(max_length=255, unique=True)  # ID налога в Stripe
-    percentage = models.DecimalField(max_digits=5, decimal_places=2)  # Процент налога
+    percentage = models.DecimalField(max_digits=3, decimal_places=1)  # Процент налога
     name = models.CharField(max_length=100)  # Название налога
 
     def __str__(self):
@@ -58,11 +58,3 @@ class Order(models.Model):
         return sum(item.total_price for item in self.items.all())
 
 
-class Tax(models.Model):
-    """Модель для хранения налогов"""
-    tax_id = models.CharField(max_length=255, unique=True)  # ID налога в Stripe
-    percentage = models.DecimalField(max_digits=5, decimal_places=2)  # Процент налога
-    name = models.CharField(max_length=100)  # Название налога
-
-    def __str__(self):
-        return f"{self.name} ({self.percentage}%)"

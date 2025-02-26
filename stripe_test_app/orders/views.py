@@ -1,6 +1,6 @@
 import stripe
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from .models import Order
 
@@ -45,6 +45,12 @@ def buy_order(request, order_id):
             'coupon': order.discount.coupon_id,  # Используем coupon_id из Stripe
         }]
 
+    # Добавляем налог, если он есть
+    if order.tax:
+        checkout_params['automatic_tax'] = {'enabled': True}
+        checkout_params['tax_id_collection'] = {'enabled': True}
+        # checkout_params['tax_rates'] = [order.tax.tax_id]  # Используем tax_id из Stripe
+
     # Создаем сессию оплаты в Stripe
     session = stripe.checkout.Session.create(**checkout_params)
 
@@ -61,3 +67,13 @@ def order_detail(request, order_id):
     )
 
 
+
+def create_tax(request):
+    """Создать налог в Stripe и сохранить его в базе данных"""
+    tax = stripe.TaxRate.create(
+        display_name="VAT",
+        percentage=20.0,  # 20% налог
+        inclusive=True,  # Налог добавляется к сумме
+    )
+
+    return HttpResponse(f"Тариф налога успешно создан: {tax.id}", status=200)
