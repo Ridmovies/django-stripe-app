@@ -3,6 +3,19 @@ from django.db import models
 from items.models import Item
 
 
+class Discount(models.Model):
+    """Модель для хранения скидок"""
+    coupon_id = models.CharField(max_length=255, unique=True)  # ID купона в Stripe
+    # Percent that will be taken off the subtotal of any invoices
+    # for this customer for the duration of the coupon. For example,
+    # a coupon with percent_off of 50 will make a $100 invoice $50 instead.
+    percent_off = models.DecimalField(max_digits=3, decimal_places=1)  # Процент скидки
+    name = models.CharField(max_length=100)  # Название скидки
+
+    def __str__(self):
+        return f"{self.name} ({self.percent_off}%)"
+
+
 # Model to store individual order items
 class OrderItem(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
@@ -19,7 +32,18 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     stripe_payment_id = models.CharField(max_length=255, blank=True, null=True)
+    discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True)  # Скидка
 
     @property
     def total_cost(self):
         return sum(item.total_price for item in self.items.all())
+
+
+class Tax(models.Model):
+    """Модель для хранения налогов"""
+    tax_id = models.CharField(max_length=255, unique=True)  # ID налога в Stripe
+    percentage = models.DecimalField(max_digits=5, decimal_places=2)  # Процент налога
+    name = models.CharField(max_length=100)  # Название налога
+
+    def __str__(self):
+        return f"{self.name} ({self.percentage}%)"
