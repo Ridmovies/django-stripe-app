@@ -28,6 +28,7 @@ class Discount(models.Model):
 
 # Model to store individual order items
 class OrderItem(models.Model):
+    """Модель для хранения элементов заказа"""
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     order = models.ForeignKey('Order', related_name='items', on_delete=models.CASCADE)
@@ -39,6 +40,7 @@ class OrderItem(models.Model):
 
 # Model for orders
 class Order(models.Model):
+    """Модель для хранения заказов"""
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     stripe_payment_id = models.CharField(max_length=255, blank=True, null=True)

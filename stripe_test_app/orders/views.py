@@ -46,6 +46,7 @@ def buy_order(request, order_id):
         }]
 
     # Добавляем налог, если он есть
+    # TODO: Доделать фиксированный налог
     if order.tax:
         checkout_params['automatic_tax'] = {'enabled': True}
         checkout_params['tax_id_collection'] = {'enabled': True}
@@ -59,6 +60,7 @@ def buy_order(request, order_id):
 
 
 def order_detail(request, order_id):
+    """Отобразить детали заказа"""
     order = get_object_or_404(Order, id=order_id)
     return render(
         request,
