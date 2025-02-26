@@ -23,7 +23,7 @@
         // Добавляем слушатель событий на нажатие кнопки
         buyButton.addEventListener('click', function() {
             // Отправляем AJAX-запрос на сервер для получения сессии оплаты
-            fetch('/api/buy/{{ item.id }}/')  // {{ item.id }} — это динамический параметр (ID товара)
+            fetch('/items/{{ item.id }}/buy/')  // {{ item.id }} — это динамический параметр (ID товара)
                 .then(function(response) {  // Обрабатываем успешный ответ сервера
                     // Преобразуем ответ в JSON-формат
                     return response.json();

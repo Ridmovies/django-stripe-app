@@ -22,6 +22,6 @@ from items.views import SuccessView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('success/', SuccessView.as_view(), name='success'),
-    path("api/", include("items.urls")),
-    path("api/", include("orders.urls")),
+    path("items/", include("items.urls")),
+    path("orders/", include("orders.urls")),
 ]

@@ -10,8 +10,8 @@ from items.views import (
 app_name = 'items'
 
 urlpatterns = [
-    path('buy/<int:id>/', buy_item, name='buy_item'),
-    path('item/<int:id>/', item_detail, name='item_detail'),
+    path('<int:id>/buy/', buy_item, name='buy_item'),
+    path('<int:id>/', item_detail, name='item_detail'),
 
-    path('item/', ItemsListView.as_view(), name='items_list'),
+    path('', ItemsListView.as_view(), name='items_list'),
 ]

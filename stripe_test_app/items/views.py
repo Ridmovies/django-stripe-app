@@ -30,6 +30,7 @@ def buy_item(request, id):
                 'currency': item.currency,
                 'product_data': {
                     'name': item.name,
+                    'description': item.description,
                 },
                 'unit_amount': int(item.price * 100),
             },

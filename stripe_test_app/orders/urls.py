@@ -10,6 +10,6 @@ from orders.views import order_detail, buy_order
 app_name = 'orders'
 
 urlpatterns = [
-    path('orders/<int:id>/buy/', buy_order, name='buy_order'),
-    path('orders/<int:id>/', order_detail, name='order_detail'),
+    path('<int:order_id>/buy/', buy_order, name='buy_order'),
+    path('<int:order_id>/', order_detail, name='order_detail'),
 ]
