@@ -9,6 +9,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def buy_order(request, order_id):
     """Получить Stripe Session Id для оплаты заказа с несколькими Item"""
+    # TODO: Добавить services для лучшей читаемости кода
     order = get_object_or_404(Order, id=order_id)
 
     # Создаем список товаров для передачи в Stripe
