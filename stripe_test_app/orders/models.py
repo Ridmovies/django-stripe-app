@@ -2,6 +2,15 @@ from django.db import models
 
 from items.models import Item
 
+class Tax(models.Model):
+    """Модель для хранения налогов"""
+    tax_id = models.CharField(max_length=255, unique=True)  # ID налога в Stripe
+    percentage = models.DecimalField(max_digits=5, decimal_places=2)  # Процент налога
+    name = models.CharField(max_length=100)  # Название налога
+
+    def __str__(self):
+        return f"{self.name} ({self.percentage}%)"
+
 
 class Discount(models.Model):
     """Модель для хранения скидок"""
@@ -33,7 +42,16 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     stripe_payment_id = models.CharField(max_length=255, blank=True, null=True)
-    discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True)  # Скидка
+    discount = models.ForeignKey(
+        Discount,
+        on_delete=models.SET_NULL,
+        null=True, blank=True
+    )
+    tax = models.ForeignKey(
+        Tax,
+        on_delete=models.SET_NULL,
+        null=True, blank=True
+    )
 
     @property
     def total_cost(self):
