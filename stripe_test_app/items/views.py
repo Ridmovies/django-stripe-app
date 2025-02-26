@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import JsonResponse
 import stripe
 from django.conf import settings
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 
 from .models import Item
 
@@ -14,6 +14,10 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 class ItemsListView(ListView):
     model = Item
     template_name = 'items/items_list.html'
+
+
+class SuccessView(TemplateView):
+    template_name = 'items/success.html'
 
 
 def buy_item(request, id):

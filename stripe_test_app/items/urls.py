@@ -4,6 +4,7 @@ from items.views import (
     buy_item,
     item_detail,
     ItemsListView,
+    SuccessView,
 )
 
 app_name = 'items'

@@ -90,7 +90,7 @@ ___
 ### Django команды:
 Запуск приложения
 ```bash
-  python manage.py runserver
+  python manage.py runserver 0.0.0.0:8000
 ```
 
 Создать новый проект Django:
@@ -138,10 +138,13 @@ ___
 
 
 ## Полезные ссылки:
-Stripe. Simulate payments to test your integration
+Stripe. API:
+https://docs.stripe.com/api?lang=python
+
+Stripe. Simulate payments to test your integration:
 https://docs.stripe.com/testing
 
-Stripe. Accept a payment
+Stripe. Accept a payment: 
 https://docs.stripe.com/payments/accept-a-payment?integration=checkout
 
 

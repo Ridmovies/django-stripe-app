@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from items.views import SuccessView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('success/', SuccessView.as_view(), name='success'),
     path("api/", include("items.urls")),
     path("api/", include("orders.urls")),
 ]
