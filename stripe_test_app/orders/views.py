@@ -28,14 +28,26 @@ def buy_order(request, order_id):
             'quantity': order_item.quantity,
         })
 
+    # Параметры для Stripe Checkout
+    checkout_params = {
+        'payment_method_types': ['card'],
+        'line_items': line_items,
+        'mode': 'payment',
+        'success_url': request.build_absolute_uri('/success/'),
+        'cancel_url': request.build_absolute_uri('/cancel/'),
+    }
+
+    # Добавляем скидку, если она есть
+    if order.discount:
+        checkout_params['discounts'] = [{
+            # Создание купона (для скидок):
+            #     Используйте Stripe API или панель управления Stripe для создания купона.
+            #     Или создайте купон через API
+            'coupon': order.discount.coupon_id,  # Используем coupon_id из Stripe
+        }]
+
     # Создаем сессию оплаты в Stripe
-    session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
-        line_items=line_items,
-        mode='payment',
-        success_url=request.build_absolute_uri('/success/'),
-        cancel_url=request.build_absolute_uri('/cancel/'),
-    )
+    session = stripe.checkout.Session.create(**checkout_params)
 
     return JsonResponse({'session_id': session.id})
 

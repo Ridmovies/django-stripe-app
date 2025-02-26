@@ -5,6 +5,7 @@ from items.models import Item
 
 class Discount(models.Model):
     """Модель для хранения скидок"""
+    # Используйте Stripe API или панель управления Stripe для создания купона.
     coupon_id = models.CharField(max_length=255, unique=True)  # ID купона в Stripe
     # Percent that will be taken off the subtotal of any invoices
     # for this customer for the duration of the coupon. For example,
