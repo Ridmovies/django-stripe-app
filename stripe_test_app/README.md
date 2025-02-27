@@ -13,7 +13,8 @@
 ### Дополнительные инструменты:
 - python-dotenv (Для работы с переменными окружения в Django)
 - Docker
-- black
+- black (Автоматически форматирует код в соответствии с PEP 8)
+- isort ( Автоматически сортирует импорты в соответствии с PEP 8)
 
 Смотри полный список зависимостей в [requirements.txt](./requirements.txt).
 
@@ -256,6 +257,16 @@ docker run -p 8000:8000 stripe_app
 ```
 docker-compose down  # Остановка и удаление контейнеров
 docker system prune -a  # Очистка Docker (осторожно, удаляет все неиспользуемые данные)
+```
+
+
+### Линтеры и форматеры:
+```bash
+black --check --diff .
+```
+
+```bash
+isort --check-only --diff --profile black .
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

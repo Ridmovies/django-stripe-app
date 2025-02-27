@@ -1,13 +1,13 @@
 from django.urls import path
 
 from items.views import (
-    buy_item,
-    item_detail,
-    create_payment_intent,
-    ItemsListView,
-    intent_detail,
-    readme_view,
     IndexView,
+    ItemsListView,
+    buy_item,
+    create_payment_intent,
+    intent_detail,
+    item_detail,
+    readme_view,
 )
 
 app_name = "items"

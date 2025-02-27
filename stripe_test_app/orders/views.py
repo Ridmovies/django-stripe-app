@@ -2,15 +2,17 @@ import stripe
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
+
 from .models import Tax
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-from .services.stripe_service import StripeService
-from .services.order_service import OrderService
+from django.shortcuts import get_object_or_404
+
 from .models import Order
+from .services.order_service import OrderService
+from .services.stripe_service import StripeService
 
 
 def buy_order(request, order_id):

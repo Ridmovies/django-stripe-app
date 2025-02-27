@@ -1,6 +1,6 @@
 from django.urls import path
 
-from orders.views import order_detail, buy_order, create_tax
+from orders.views import buy_order, create_tax, order_detail
 
 app_name = "orders"
 
