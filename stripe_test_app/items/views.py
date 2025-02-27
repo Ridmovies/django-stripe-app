@@ -17,10 +17,6 @@ class SuccessView(TemplateView):
     template_name = "items/success.html"
 
 
-class IndexView(TemplateView):
-    template_name = "items/index.html"
-
-
 def buy_item(request, id):
     """получить Stripe Session Id для оплаты выбранного Item"""
 

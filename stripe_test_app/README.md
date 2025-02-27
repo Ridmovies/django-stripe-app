@@ -2,6 +2,9 @@
 # Django-Stripe Test app
 
 Простое приложение Django с одной html страничкой, который общается со Stripe и создает платёжные формы для товаров.
+С помощью админки можно создать Item, Order, OrderItem, Tax, Discount. 
+В Order можно складывать OrderItem которые состоят из Item и их количества. 
+Также к Заказу можно применить скидки и налоги.
 ![2025-02-27_16-45-03.png](2025-02-27_16-45-03.png)
 
 ## Инструменты:
@@ -14,7 +17,8 @@
 - python-dotenv (Для работы с переменными окружения в Django)
 - Docker
 - black (Автоматически форматирует код в соответствии с PEP 8)
-- isort ( Автоматически сортирует импорты в соответствии с PEP 8)
+- isort (Автоматически сортирует импорты в соответствии с PEP 8)
+- bandit (Проверяет код на наличие уязвимостей безопасности)
 
 Смотри полный список зависимостей в [requirements.txt](./requirements.txt).
 
@@ -55,49 +59,6 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
-
-
-## Запросы для тестирования
-На локальной машине
-```
-http://127.0.0.1:8000 
-```
-
-
-На VDS
-```
-http://80.64.17.185:8080
-```
-
-Админка (admin:admin)
-```
-/admin/
-```
-
-Информация о выбранном Item и кнопка Buy
-```
-/item/1
-```
-
-Получить Stripe Session Id для оплаты выбранного Item
-```
-/buy/1
-```
-
-Информация о выбранном Order и кнопка Buy
-```
-/orders/2/
-```
-
-Создать налог с помощью Stripe API
-```
-/orders/create_tax/
-```
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-___
 
 
 #### Приложение доступно для тестирования по адресу:
@@ -196,6 +157,55 @@ docker run -p 8000:8000 stripe_app
 ---
 
 
+## Запросы для тестирования
+На локальной машине
+```
+http://127.0.0.1:8000 
+```
+
+
+На VDS
+```
+http://80.64.17.185:8080
+```
+
+Админка (admin:admin)
+```
+/admin/
+```
+
+Информация о выбранном Item и кнопка Buy
+```
+/item/1
+```
+
+Получить Stripe Session Id для оплаты выбранного Item
+```
+/buy/1/
+```
+
+Информация о выбранном Order и кнопка Buy
+```
+/orders/2/
+```
+
+Создать налог с помощью Stripe API
+```
+/orders/create_tax/
+```
+
+Readme в HTML формате
+```
+/readme/
+```
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+___
+
+
+
 
 
 ## DEVELOP 
@@ -268,6 +278,11 @@ black --check --diff .
 ```bash
 isort --check-only --diff --profile black .
 ```
+
+```bash
+bandit -r .
+```
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
