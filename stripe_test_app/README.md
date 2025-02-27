@@ -2,6 +2,7 @@
 # Django-Stripe Test app
 
 Простое приложение Django с одной html страничкой, который общается со Stripe и создает платёжные формы для товаров.
+![2025-02-27_16-45-03.png](2025-02-27_16-45-03.png)
 
 ## Инструменты:
 ### Основной стек:
@@ -9,17 +10,22 @@
 - SQLite3
 - Stripe
 
-
 ### Дополнительные инструменты:
 - python-dotenv (Для работы с переменными окружения в Django)
 - Docker
 
 Смотри полный список зависимостей в [requirements.txt](./requirements.txt).
 
+### ИИ-ассистенты
+- DeepSeek
+- GigaChat
+
+
 ---
 
 ## Roadmap
 Основные задачи: 
+
 - [x] Создать item app
 - [x] Django Модель Item с полями (name, description, price) 
 - [x] API с двумя методами:
@@ -29,6 +35,7 @@
 - [x] Опубликовать свое решение чтобы его можно было быстро и легко протестировать. 
 
 Бонусные задачи: 
+
 - [x] Запуск используя Docker
 - [x] environment variables
 - [x] Просмотр Django Моделей в Django Admin панели 
@@ -36,9 +43,10 @@
 - [x] Модель Order, в которой можно объединить несколько Item и сделать платёж в Stripe на содержимое Order c общей стоимостью всех Items
 - [x] Модели Discount, Tax, которые можно прикрепить к модели Order и связать с соответствующими атрибутами при создании платежа в Stripe - в таком случае они корректно отображаются в Stripe Checkout форме. 
 - [x] Добавить поле Item.currency, создать 2 Stripe Keypair на две разные валюты и в зависимости от валюты выбранного товара предлагать оплату в соответствующей валюте
-- [ ] Реализовать не Stripe Session, а Stripe Payment Intent.
+- [x] Реализовать не Stripe Session, а Stripe Payment Intent.
 
 Дополнительно:
+
 - [x] Развернуть приложение с помощью docker-compose
 - [ ] Настроить статику и nginx
 
@@ -51,7 +59,7 @@ http://80.64.17.185:8080/
 
 Админка:
 http://80.64.17.185:8080/admin/
-username:password => rid:root
+username:password => admin:admin
 
 Информация о выбранном Item и кнопка Buy
 http://80.64.17.185:8080/item/2
@@ -75,7 +83,7 @@ http://80.64.17.185:8080/orders/1/
    git clone https://github.com/Ridmovies/django-stripe-app.git
    ```
   
-* ### Установка Docker Engine
+*  #### Установка Docker Engine
 - https://docs.docker.com/engine/install/
 - https://docs.docker.com/engine/install/ubuntu/
 
@@ -84,7 +92,7 @@ http://80.64.17.185:8080/orders/1/
    cd stripe_test_app
     ```
 
-### Сборка нового образа и запуск контейнера
+*  #### Сборка нового образа и запуск контейнера
 ```bash
 docker build -t stripe_app .
 docker run -p 8000:8000 stripe_app
@@ -142,7 +150,7 @@ docker run -p 8000:8000 stripe_app
 
 
 ## Запросы для тестирования на локальной машине
-Админка (rid:root)
+Админка (admin:admin)
 ```
 http://127.0.0.1:8000/admin/
 ```

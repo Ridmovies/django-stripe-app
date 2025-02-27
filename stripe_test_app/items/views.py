@@ -1,8 +1,7 @@
-from django.shortcuts import render
-
 from django.shortcuts import get_object_or_404, render
 from django.http import JsonResponse
 import stripe
+import markdown
 from django.conf import settings
 from django.views.generic import ListView, TemplateView
 
@@ -18,6 +17,10 @@ class ItemsListView(ListView):
 
 class SuccessView(TemplateView):
     template_name = 'items/success.html'
+
+
+class IndexView(TemplateView):
+    template_name = 'items/index.html'
 
 
 def buy_item(request, id):
@@ -100,3 +103,13 @@ def intent_detail(request, id):
     )
 
 
+def readme_view(request):
+    # Загружаем файл README.md
+    with open('README.md', 'r') as f:
+        content = f.read()
+
+    # Преобразуем Markdown в HTML
+    html_content = markdown.markdown(content)
+
+    context = {'readme': html_content}
+    return render(request, 'items/readme.html', context)

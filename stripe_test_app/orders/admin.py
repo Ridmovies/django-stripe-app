@@ -20,4 +20,4 @@ class DiscountAdmin(admin.ModelAdmin):
 
 @admin.register(Tax)
 class TaxAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "percentage")
+    list_display = ("tax_id", "name", "percentage")
