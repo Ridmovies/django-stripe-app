@@ -24,17 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 load_dotenv()
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
-
-# Stripe API ключи
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["80.64.17.185"]
+ALLOWED_HOSTS = [
+    "80.64.17.185",
+    "127.0.0.1",
+    "localhost",
+]
 
 
 # Application definition
@@ -127,9 +125,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'static/' # URL для статических файлов
+STATIC_ROOT = BASE_DIR / 'static'  # Директория для сбора статических файлов
+# STATICFILES_DIRS = [BASE_DIR / 'static']
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+# Stripe API ключи
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+EUR_STRIPE_SECRET_KEY = os.getenv('EUR_STRIPE_SECRET_KEY')

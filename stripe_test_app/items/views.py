@@ -8,7 +8,7 @@ from django.views.generic import ListView, TemplateView
 
 from .models import Item
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 
 class ItemsListView(ListView):
@@ -22,7 +22,14 @@ class SuccessView(TemplateView):
 
 def buy_item(request, id):
     """получить Stripe Session Id для оплаты выбранного Item"""
+
     item = get_object_or_404(Item, id=id)
+    currency = item.currency # Текущая валюта
+    if currency == 'usd':
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+    elif currency == 'eur':
+        stripe.api_key = settings.EUR_STRIPE_SECRET_KEY
+
     session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[{

@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Сервис для Django-приложения
+  web:
+    build: .  # Собираем контейнер из Dockerfile в текущей директории
+    container_name: web
+    command: sh -c "python manage.py migrate && python manage.py collectstatic --no-input && gunicorn stripe_test_app.wsgi:application --bind 0.0.0.0:8000"
+    networks:
+      - app_network
+
+  # Сервис для Nginx
+  nginx:
+    image: nginx:1.21
+    container_name: nginx
+    ports:
+      - "8080:80"  # Порт 8080 на хосте, порт 80 в контейнере
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Монтируем конфигурацию Nginx
+    depends_on:
+      - web  # Зависимость от сервиса web
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
