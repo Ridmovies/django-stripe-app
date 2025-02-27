@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('items', '0001_initial'),
+        ("items", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='item',
-            name='currency',
-            field=models.CharField(choices=[('usd', 'USD'), ('eur', 'EUR')], max_length=3),
+            model_name="item",
+            name="currency",
+            field=models.CharField(
+                choices=[("usd", "USD"), ("eur", "EUR")], max_length=3
+            ),
         ),
     ]

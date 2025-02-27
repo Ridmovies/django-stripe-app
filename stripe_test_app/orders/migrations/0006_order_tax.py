@@ -7,13 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('orders', '0005_discount_coupon_id'),
+        ("orders", "0005_discount_coupon_id"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='order',
-            name='tax',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='orders.tax'),
+            model_name="order",
+            name="tax",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="orders.tax",
+            ),
         ),
     ]

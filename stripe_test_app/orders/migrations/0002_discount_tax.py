@@ -6,26 +6,42 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('orders', '0001_initial'),
+        ("orders", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Discount',
+            name="Discount",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('coupon_id', models.CharField(max_length=255, unique=True)),
-                ('percent_off', models.DecimalField(decimal_places=1, max_digits=3)),
-                ('name', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("coupon_id", models.CharField(max_length=255, unique=True)),
+                ("percent_off", models.DecimalField(decimal_places=1, max_digits=3)),
+                ("name", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Tax',
+            name="Tax",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tax_id', models.CharField(max_length=255, unique=True)),
-                ('percentage', models.DecimalField(decimal_places=2, max_digits=5)),
-                ('name', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("tax_id", models.CharField(max_length=255, unique=True)),
+                ("percentage", models.DecimalField(decimal_places=2, max_digits=5)),
+                ("name", models.CharField(max_length=100)),
             ],
         ),
     ]
