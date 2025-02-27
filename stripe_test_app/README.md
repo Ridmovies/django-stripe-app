@@ -249,7 +249,6 @@ ___
   docker build -t [имя_образа]:[версия] .
 ```
 
-
 Запуск нового контейнера:
 ```
   docker run -p 5000:8000 [имя_образа]
@@ -260,6 +259,22 @@ ___
   docker exec -it имя_контейнера bash
 ```
 
+Создать образ
+```
+docker build -t stripe_app .
+```
+
+Переименовать образ 
+```
+docker tag stripe_app ridhub/stripe_app
+```
+
+Загрузить образ на docker hub
+```
+docker push ridhub/stripe_app
+```
+
+
 ### Docker-compose
 
 Полная очистка Docker
@@ -268,6 +283,10 @@ ___
 docker-compose down  # Остановка и удаление контейнеров
 docker system prune -a  # Очистка Docker (осторожно, удаляет все неиспользуемые данные)
 ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
 
 
 ### Линтеры и форматеры:
