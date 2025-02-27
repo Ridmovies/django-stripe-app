@@ -50,11 +50,52 @@ def buy_item(request, id):
     return JsonResponse({'session_id': session.id})
 
 
+def create_payment_intent(request, id):
+    """Создать Payment Intent для оплаты товара"""
+    item = get_object_or_404(Item, id=id)
+
+    # Выбираем ключи Stripe в зависимости от валюты товара
+    currency = item.currency # Текущая валюта
+    if currency == 'usd':
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        publishable_key = settings.STRIPE_PUBLIC_KEY
+    elif currency == 'eur':
+        stripe.api_key = settings.EUR_STRIPE_SECRET_KEY
+        publishable_key = settings.EUR_STRIPE_PUBLIC_KEY
+
+    try:
+        # Создаем Payment Intent
+        intent = stripe.PaymentIntent.create(
+            amount=int(item.price * 100),  # Сумма в центах/евроцентах
+            currency=currency,
+            automatic_payment_methods={"enabled": True},
+            metadata={
+                'item_id': item.id,
+                'item_name': item.name,
+            },
+        )
+        return JsonResponse({
+            'clientSecret': intent.client_secret,  # Возвращаем client_secret для Stripe Elements
+            'publishableKey': publishable_key,
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
+
+
 def item_detail(request, id):
     item = get_object_or_404(Item, id=id)
     return render(
         request,
         'items/item_detail.html',
+        {'item': item, 'stripe_public_key': settings.STRIPE_PUBLIC_KEY}
+    )
+
+
+def intent_detail(request, id):
+    item = get_object_or_404(Item, id=id)
+    return render(
+        request,
+        'items/intent_detail.html',
         {'item': item, 'stripe_public_key': settings.STRIPE_PUBLIC_KEY}
     )
 

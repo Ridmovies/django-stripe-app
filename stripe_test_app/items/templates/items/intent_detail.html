@@ -1,0 +1,19 @@
+{% load static %}
+
+<!-- Форма для оплаты -->
+<form id="payment-form">
+    <div id="card-number"></div>
+    <div id="card-expiry"></div>
+    <div id="card-cvc"></div>
+    <button id="submit-button">Pay Now</button>
+</form>
+
+<!-- Сообщения об ошибках -->
+<div id="error-message" role="alert"></div>
+
+<!-- Подключаем Stripe.js -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const itemId = {{ item.id }};  // ID товара из Django
+</script>
+<script src="{% static 'js/stripe.js' %}"></script>
